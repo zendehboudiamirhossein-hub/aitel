@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}پیام همگانی{% endblock %}
+{% block content %}
+<h2 class="mb-4">📢 ارسال پیام همگانی</h2>
+
+<div class="card p-3 mb-4">
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">متن پیام</label>
+      <textarea name="message" class="form-control" rows="5" placeholder="پیام خود را بنویسید..." required></textarea>
+    </div>
+    <button class="btn btn-primary">ارسال به همه کاربران</button>
+  </form>
+</div>
+
+<div class="card p-3">
+  <h5>تاریخچه پیام‌های همگانی</h5>
+  <table class="table table-sm">
+    <thead><tr><th>پیام</th><th>تاریخ</th><th>وضعیت</th><th>تعداد ارسال</th></tr></thead>
+    <tbody>
+    {% for b in history %}
+      <tr>
+        <td>{{ b.message[:80] }}</td>
+        <td><small>{{ b.created_at[:19] }}</small></td>
+        <td>{% if b.sent %}<span class="badge bg-success">ارسال شد</span>{% else %}<span class="badge bg-secondary">در صف</span>{% endif %}</td>
+        <td>{{ b.total_sent }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4" class="text-center text-muted">هنوز پیامی ارسال نشده.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <small class="text-muted">پیام‌ها هر ۵ ثانیه یک‌بار توسط ربات از صف پردازش و ارسال می‌شوند.</small>
+</div>
+{% endblock %}

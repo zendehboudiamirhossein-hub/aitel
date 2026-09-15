@@ -1,0 +1,60 @@
+body {
+  background: #f4f6fb;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: #101828;
+  color: #fff;
+}
+
+.sidebar .nav-link {
+  color: #cbd5e1;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.content {
+  max-width: 1200px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+}
+
+.login-card {
+  width: 360px;
+  border-radius: 16px;
+}
+
+.card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}

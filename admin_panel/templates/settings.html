@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}تنظیمات{% endblock %}
+{% block content %}
+<h2 class="mb-4">⚙️ تنظیمات ربات</h2>
+
+<div class="card p-3">
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">مدل پیش‌فرض هوش مصنوعی</label>
+      <input type="text" name="default_model" list="model-list" value="{{ current_model }}" class="form-control">
+      <datalist id="model-list">
+        {% for m in available_models %}<option value="{{ m }}">{% endfor %}
+      </datalist>
+      <small class="text-muted">این مدل برای کاربرانی که خودشان مدل انتخاب نکرده‌اند استفاده می‌شود.</small>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">System Prompt پیش‌فرض</label>
+      <textarea name="system_prompt" rows="6" class="form-control">{{ current_prompt }}</textarea>
+    </div>
+    <button class="btn btn-primary">ذخیره تنظیمات</button>
+  </form>
+</div>
+{% endblock %}

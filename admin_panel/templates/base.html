@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}پنل مدیریت ربات{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if session.logged_in %}
+<div class="d-flex">
+  <nav class="sidebar p-3">
+    <h4 class="mb-4">🤖 پنل مدیریت</h4>
+    <ul class="nav nav-pills flex-column gap-1">
+      <li class="nav-item"><a class="nav-link {% if request.endpoint=='dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">📊 داشبورد</a></li>
+      <li class="nav-item"><a class="nav-link {% if request.endpoint=='users' %}active{% endif %}" href="{{ url_for('users') }}">👥 کاربران</a></li>
+      <li class="nav-item"><a class="nav-link {% if request.endpoint=='broadcast' %}active{% endif %}" href="{{ url_for('broadcast') }}">📢 پیام همگانی</a></li>
+      <li class="nav-item"><a class="nav-link {% if request.endpoint=='settings' %}active{% endif %}" href="{{ url_for('settings') }}">⚙️ تنظیمات</a></li>
+      <li class="nav-item"><a class="nav-link {% if request.endpoint=='logs' %}active{% endif %}" href="{{ url_for('logs') }}">🧾 لاگ‌ها</a></li>
+    </ul>
+    <hr>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm w-100">خروج</a>
+  </nav>
+  <main class="content p-4 flex-grow-1">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert {{ 'alert-danger' if category=='error' else 'alert-success' }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% else %}
+  {% block auth_content %}{% endblock %}
+{% endif %}
+</body>
+</html>

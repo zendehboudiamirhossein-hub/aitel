@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}لاگ‌ها{% endblock %}
+{% block content %}
+<h2 class="mb-4">🧾 لاگ‌های سیستم</h2>
+<div class="card p-3">
+  <table class="table table-sm">
+    <thead><tr><th>سطح</th><th>تاریخ</th><th>پیام</th></tr></thead>
+    <tbody>
+    {% for l in logs %}
+      <tr>
+        <td><span class="badge {{ 'bg-danger' if l.level=='error' else 'bg-secondary' }}">{{ l.level }}</span></td>
+        <td><small>{{ l.created_at[:19] }}</small></td>
+        <td class="small">{{ l.message }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3" class="text-center text-muted">لاگی ثبت نشده.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

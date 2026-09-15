@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}داشبورد{% endblock %}
+{% block content %}
+<h2 class="mb-4">📊 داشبورد</h2>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.total_users }}</div><div class="stat-label">کل کاربران</div></div></div>
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.active_today }}</div><div class="stat-label">فعال امروز</div></div></div>
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.total_messages }}</div><div class="stat-label">کل پیام‌های چت</div></div></div>
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.total_images }}</div><div class="stat-label">تصاویر ساخته‌شده</div></div></div>
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.total_files }}</div><div class="stat-label">فایل‌های ساخته‌شده</div></div></div>
+  <div class="col-md-3"><div class="stat-card">
+    <div class="stat-num">{{ stats.banned }}</div><div class="stat-label">کاربران مسدود</div></div></div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h5>👥 آخرین کاربران</h5>
+      <table class="table table-sm">
+        <thead><tr><th>آیدی</th><th>یوزرنیم</th><th>پیام‌ها</th><th>وضعیت</th></tr></thead>
+        <tbody>
+        {% for u in recent_users %}
+          <tr>
+            <td>{{ u.telegram_id }}</td>
+            <td>@{{ u.username or '-' }}</td>
+            <td>{{ u.message_count }}</td>
+            <td>{% if u.is_banned %}<span class="badge bg-danger">مسدود</span>{% else %}<span class="badge bg-success">فعال</span>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <a href="{{ url_for('users') }}" class="btn btn-sm btn-outline-primary">مشاهده همه</a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h5>🧾 آخرین رویدادها</h5>
+      <ul class="list-group list-group-flush">
+      {% for l in recent_logs %}
+        <li class="list-group-item">
+          <span class="badge {{ 'bg-danger' if l.level=='error' else 'bg-secondary' }}">{{ l.level }}</span>
+          <small class="text-muted">{{ l.created_at[:19] }}</small><br>
+          <span class="small">{{ l.message }}</span>
+        </li>
+      {% else %}
+        <li class="list-group-item">هنوز رویدادی ثبت نشده.</li>
+      {% endfor %}
+      </ul>
+      <a href="{{ url_for('logs') }}" class="btn btn-sm btn-outline-primary mt-2">مشاهده همه لاگ‌ها</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
